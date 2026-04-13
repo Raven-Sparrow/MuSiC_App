@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AuraPlayer</string>
+    <string name="title_activity_main">AuraPlayer</string>
+    <string name="package_name">com.akash.auraplayer</string>
+    <string name="custom_url_scheme">com.akash.auraplayer</string>
+</resources>

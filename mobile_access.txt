@@ -1,0 +1,21 @@
+=========================================
+      AURAIFY - MOBILE ACCESS GUIDE
+=========================================
+
+To access your Spotify Clone app on any mobile device:
+
+1. PRIMARY PUBLIC LINK:
+   https://auraify-app-akash.loca.lt
+
+2. SECURITY BYPASS (If asked for IP):
+   If you see a splash page, enter your PC's IP: 
+   223.237.177.105
+
+3. LOCAL WIFI LINK (Bypasses the internet, 100% stable):
+   http://10.131.142.237:3001
+
+-----------------------------------------
+HINT: Once the app opens in your phone's browser, 
+tap the "Menu" and select "Add to Home Screen" 
+to install it as a real app icon!
+-----------------------------------------

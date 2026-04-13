@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone - Auraify</title>
+    <!-- Bootstrap 4.5.2 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark text-white" style="font-family: 'Inter', sans-serif;">
+
+    <div id="main-wrapper" class="d-flex flex-column vh-100 overflow-hidden">
+        
+        <!-- Main Layout Section (Sidebar + Content) -->
+        <div class="d-flex flex-grow-1 overflow-hidden">
+            
+            <!-- Sidebar (Left) -->
+            <nav id="sidebar" class="bg-black d-none d-md-flex flex-column py-4" style="width: 240px; background-color: #000 !important; z-index: 100;">
+                <div class="px-4 mb-4">
+                    <h4 class="font-weight-bold tracking-tighter">🟢 Auraify</h4>
+                </div>
+                
+                <ul class="nav flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-white-50 font-weight-bold py-2 px-4 navigation-btn active" id="nav-home-btn">
+                            <span class="mr-3">🏠</span> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-white-50 font-weight-bold py-2 px-4 navigation-btn" id="nav-search-btn">
+                            <span class="mr-3">🔍</span> Search
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-white-50 font-weight-bold py-2 px-4" id="nav-library-btn">
+                            <span class="mr-3">📚</span> Your Library
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="px-4 text-secondary mt-4">
+                    <small>Cloud Sync Active</small>
+                </div>
+            </nav>
+
+            <!-- Main Content (Right) -->
+            <main class="flex-grow-1 position-relative d-flex flex-column overflow-hidden" style="background: linear-gradient(to bottom, #212121, #121212);">
+                
+                <!-- Header (Sticky) -->
+                <header class="navbar navbar-dark bg-transparent py-3 px-4 w-100 d-flex justify-content-between align-items-center" style="position: sticky; top: 0; z-index: 50; background-color: rgba(18,18,18,0.7) !important; backdrop-filter: blur(10px);">
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-dark rounded-circle mr-2 border-0" style="width:32px; height:32px; background: #000; padding:0;">&lt;</button>
+                        <button class="btn btn-dark rounded-circle border-0" style="width:32px; height:32px; background: #000; padding:0;">&gt;</button>
+                        
+                        <!-- Search Bar (Visible when in Search mode) -->
+                        <div id="search-bar-container" class="ml-3" style="display: none;">
+                            <input type="text" id="search-input" class="form-control rounded-pill border-0 px-4 bg-white text-dark" style="width: 320px; height: 40px;" placeholder="What do you want to listen to?">
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-dark rounded-pill border-0 bg-black py-1 px-3 d-flex align-items-center" type="button">
+                            <span class="font-weight-bold text-sm">User Profile</span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Scrollable Content -->
+                <div id="scroll-container" class="flex-grow-1 overflow-auto px-4 py-2">
+                    
+                    <!-- View: Home -->
+                    <section id="view-home" class="dynamic-view">
+                        <h2 class="font-weight-bold mb-4">Good Evening</h2>
+                        <div id="cloud-library-container" class="row">
+                            <!-- Tracks will be rendered here -->
+                        </div>
+                    </section>
+
+                    <!-- View: Search -->
+                    <section id="view-search" class="dynamic-view" style="display: none;">
+                        <h2 class="font-weight-bold mb-4">Search Results</h2>
+                        <div id="search-results-container" class="row">
+                            <div class="col-12 text-secondary">Search for something to see results...</div>
+                        </div>
+                    </section>
+
+                    <!-- Loading State -->
+                    <div id="loading-overlay" class="text-center py-5" style="display: none;">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+
+        <!-- Bottom Player Bar -->
+        <footer id="player-bar" class="bg-black border-top border-dark d-flex align-items-center px-3" style="height: 90px; background-color: #000 !important; z-index: 200;">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    
+                    <!-- Left: Song Info -->
+                    <div class="col-3 d-flex align-items-center">
+                        <img id="p-art" src="https://via.placeholder.com/56" class="rounded mr-3 shadow" style="width: 56px; height: 56px; background: #282828; visibility: hidden;">
+                        <div id="p-text" class="text-truncate" style="visibility: hidden;">
+                            <h6 id="p-title" class="mb-0 text-white font-weight-bold text-truncateSmall">No track selected</h6>
+                            <small id="p-artist" class="text-secondary text-truncateSmall">---</small>
+                        </div>
+                        <button id="p-heart" class="btn btn-link text-white-50 p-0 ml-3" style="font-size: 20px;">🤍</button>
+                    </div>
+
+                    <!-- Center: Controls -->
+                    <div class="col-6 d-flex flex-column align-items-center">
+                        <div class="d-flex align-items-center mb-1">
+                            <button class="btn btn-link text-white-50 p-1 mx-2">🔀</button>
+                            <button id="btn-prev" class="btn btn-link text-white-50 p-1 mx-2">⏮</button>
+                            <button id="btn-play" class="btn btn-light rounded-circle p-0 mx-2 shadow-sm d-flex justify-content-center align-items-center" style="width: 32px; height: 32px; font-size: 14px; color: #000;">▶</button>
+                            <button id="btn-next" class="btn btn-link text-white-50 p-1 mx-2">⏭</button>
+                            <button class="btn btn-link text-white-50 p-1 mx-2">🔁</button>
+                        </div>
+                        <div class="d-flex align-items-center w-100" style="max-width: 500px;">
+                            <span id="time-cur" class="text-secondary text-xs mr-2">0:00</span>
+                            <div class="progress flex-grow-1 bg-secondary" style="height: 4px; cursor: pointer;" id="seek-container">
+                                <div id="seek-progress" class="progress-bar bg-white" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <span id="time-total" class="text-secondary text-xs ml-2">0:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Volume/Tools -->
+                    <div class="col-3 d-flex justify-content-end align-items-center">
+                        <span class="text-white-50 mr-2" style="font-size: 14px;">🔊</span>
+                        <div class="progress w-50 bg-secondary" style="height: 4px; max-width: 100px;">
+                            <div class="progress-bar bg-white" style="width: 80%"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="main-audio-engine" preload="auto"></audio>
+
+    <!-- Scripts (Using user's provided CDNs) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+
+</body>
+</html>
