@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent } from 'react';
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { Music, FolderOpen, ListMusic, Cloud, Search } from 'lucide-react';
 import { parseAudioFile } from '../utils/audio';
 import type { Track } from '../types';
@@ -53,7 +53,7 @@ export function Sidebar({ onTracksLoaded, isLoading, setIsLoading }: SidebarProp
     setIsLoading(false);
   };
 
-  const handleSearch = async (e: React.FormEvent) => {
+  const handleSearch = async (e: FormEvent) => {
     e.preventDefault();
     if (!searchQuery) return;
     setIsLoading(true);
